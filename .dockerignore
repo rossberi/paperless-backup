@@ -1,0 +1,57 @@
+# Lokale Konfigurationsdateien
+*.local
+
+# Editor-spezifische Dateien und Verzeichnisse
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+
+# Bytecode-Dateien und Cache-Verzeichnisse
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+**/__pycache__/
+**/env/
+**/.venv/
+
+# Virtuelle Umgebungen
+env
+venv
+.venv
+
+*.pem
+*.key
+
+# Sensible Daten und Konfigurationsdateien
+.env
+
+# Build- und Distribution-Verzeichnisse
+build/
+dist/
+*.egg-info/
+
+# Versionskontroll-spezifische Dateien
+.git
+.gitignore
+.gitattributes
+.gitmodules
+.hg
+.hgignore
+.hgsub
+*.log
+
+# Docker-spezifische Dateien
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Dokumentationsverzeichnisse
+docs/
