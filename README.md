@@ -25,7 +25,7 @@ docker run -d \
   -e KEEP_BACKUPS=7 \
   -v /path/to/paperless/export:/paperless/export:ro \
   -v /path/to/backups:/backups \
-  ghcr.io/yourusername/paperless-backup:latest
+  ghcr.io/rossberi/paperless-backup:latest
 ```
 
 ### Docker Compose (with SMTP)
