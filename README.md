@@ -15,14 +15,13 @@ An automated Docker-based backup system for [Paperless-ngx](https://github.com/p
 
 ## 🚀 Quick Start
 
-### Docker Run
+### minimal Docker Run
 
 ```bash
 docker run -d \
   --name paperless-backup \
   -e PAPERLESS_CONTAINER_NAME=paperless \
   -e PAPERLESS_EXPORT_DIR=../export \
-  -e KEEP_BACKUPS=7 \
   -v /path/to/paperless/export:/export \
   -v /path/to/backups:/backups \
   -v /var/run/docker.sock:/var/run/docker.sock \

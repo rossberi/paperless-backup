@@ -8,7 +8,7 @@ if [ -n "$BACKUP_SCHEDULE" ]; then
 
     # create crontab
     echo "$BACKUP_SCHEDULE /usr/local/bin/python3 /code/main.py >> /var/log/backup.log 2>&1" > /etc/crontabs/root
-    exec crond -f
+    crond -f -L /dev/stdout
 
 else
     printf "No BACKUP_SCHEDULE detected. Starting backup ..."
