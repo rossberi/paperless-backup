@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Check if BACKUP_SCHEDULE is set
 if [ -n "$BACKUP_SCHEDULE" ]; then
     printf "\n"
     printf "BACKUP_SCHEDULE detected: $BACKUP_SCHEDULE\n"
