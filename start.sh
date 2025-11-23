@@ -4,7 +4,6 @@
 if [ -n "$BACKUP_SCHEDULE" ]; then
     printf "\n"
     printf "BACKUP_SCHEDULE detected: $BACKUP_SCHEDULE\n"
-    printf "Next backup scheduled at: $(date -d "$BACKUP_SCHEDULE")\n"
     printf "\n"
 
     # create crontab
