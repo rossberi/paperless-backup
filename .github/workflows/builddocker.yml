@@ -1,0 +1,68 @@
+name: Build and publish Docker image
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    tags:
+      - '*'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest   # <-- GitHub gehosteter Runner
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine tagging strategy
+        id: set-tags
+        run: |
+          if [[ "${GITHUB_REF#refs/heads/}" == "main" ]]; then
+            echo "TAG_TYPE=semver" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF#refs/heads/}" == "dev" ]]; then
+            echo "TAG_TYPE=dev" >> $GITHUB_ENV
+          else
+            echo "TAG_TYPE=other" >> $GITHUB_ENV
+          fi
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            ${{ 
+              (github.event_name == 'push' && env.TAG_TYPE == 'semver' && github.ref_type == 'tag') && 
+              format('type=semver,pattern={{version}}\ntype=semver,pattern={{major}}\ntype=semver,pattern={{major}}.{{minor}}\ntype=semver,pattern={{major}}.{{minor}}.{{patch}}\ntype=raw,value=latest,enable={{is_default_branch}}') 
+            }}
+            ${{ 
+              (github.event_name == 'push' && env.TAG_TYPE == 'dev' && github.ref_type == 'branch') && 
+              format('type=raw,value=dev,enable=true') 
+            }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
