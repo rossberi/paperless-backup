@@ -29,7 +29,9 @@ def copy_exported_zip(timestamp: str, paperless_export_dir: str, paperless_backu
         raise FileNotFoundError(f"ERROR - Export failed – File not found: {exported_zip}")
     shutil.move(exported_zip, f'{paperless_backup_dir}/backup_{timestamp}.zip')
 
-    log_msg(f"Created backup: backup_{timestamp}.zip | Size: {(os.path.getsize(f'{paperless_backup_dir}/backup_{timestamp}.zip')) / 1024 / 1024 / 1024} GB")
+    file_size = round((os.path.getsize(f'{paperless_backup_dir}/backup_{timestamp}.zip') / 1024 / 1024 / 1024), 2)
+
+    log_msg(f"Created backup: backup_{timestamp}.zip | Size: {file_size} GB")
     log_msg("")
 
 def start_backup(container_name: str, paperless_export_dir: str,backup_dir: str):
