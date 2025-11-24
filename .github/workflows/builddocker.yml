@@ -3,11 +3,9 @@ name: Build and publish Docker image
 on:
   push:
     branches:
-      - main
       - dev
     tags:
-      - '*'
-  workflow_dispatch:
+      - 'v*'
 
 env:
   REGISTRY: ghcr.io
@@ -15,7 +13,7 @@ env:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest   # <-- GitHub gehosteter Runner
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
@@ -32,31 +30,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Determine tagging strategy
-        id: set-tags
-        run: |
-          if [[ "${GITHUB_REF#refs/heads/}" == "main" ]]; then
-            echo "TAG_TYPE=semver" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF#refs/heads/}" == "dev" ]]; then
-            echo "TAG_TYPE=dev" >> $GITHUB_ENV
-          else
-            echo "TAG_TYPE=other" >> $GITHUB_ENV
-          fi
-
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            ${{ 
-              (github.event_name == 'push' && env.TAG_TYPE == 'semver' && github.ref_type == 'tag') && 
-              format('type=semver,pattern={{version}}\ntype=semver,pattern={{major}}\ntype=semver,pattern={{major}}.{{minor}}\ntype=semver,pattern={{major}}.{{minor}}.{{patch}}\ntype=raw,value=latest,enable={{is_default_branch}}') 
-            }}
-            ${{ 
-              (github.event_name == 'push' && env.TAG_TYPE == 'dev' && github.ref_type == 'branch') && 
-              format('type=raw,value=dev,enable=true') 
-            }}
+            type=ref,event=branch
+            type=semver,pattern={{version}},value=${{ github.ref_name }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ github.ref_name }}
+            type=semver,pattern={{major}},value=${{ github.ref_name }}
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=dev,enable=${{ github.ref_name == 'dev' }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

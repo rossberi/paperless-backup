@@ -10,7 +10,7 @@ success = True
 
 #environment variables
 container_name = os.getenv("PAPERLESS_CONTAINER_NAME", "paperless")
-paperless_export_dir = os.getenv("PAPERLESS_EXPORT_DIR", "../export/")
+paperless_export_dir = os.getenv("PAPERLESS_EXPORT_DIR", "../export")
 keep_backups = int(os.getenv("KEEP_BACKUPS", "3"))
 backup_dir = os.getenv("BACKUP_DIR", "/backup")
 export_dir = os.getenv("EXPORT_DIR", "/export")

@@ -15,17 +15,17 @@ An automated Docker-based backup system for [Paperless-ngx](https://github.com/p
 
 ## 🚀 Quick Start
 
-### Docker Run
+### minimal Docker Run
 
 ```bash
 docker run -d \
   --name paperless-backup \
   -e PAPERLESS_CONTAINER_NAME=paperless \
-  -e BACKUP_SCHEDULE="0 2 * * *" \
-  -e KEEP_BACKUPS=7 \
-  -v /path/to/paperless/export:/paperless/export:ro \
+  -e PAPERLESS_EXPORT_DIR=../export \
+  -v /path/to/paperless/export:/export \
   -v /path/to/backups:/backups \
-  ghcr.io/yourusername/paperless-backup:latest
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  ghcr.io/rossberi/paperless-backup:latest
 ```
 
 ### Docker Compose (with SMTP)
@@ -37,10 +37,10 @@ services:
     container_name: paperless-backup
     environment:
       PAPERLESS_CONTAINER_NAME: paperless
-      PAPERLESS_EXPORT_DIR: '../export/'
+      PAPERLESS_EXPORT_DIR: '../export'
       BACKUP_DIR: '/backups'
       EXPORT_DIR: '/export'
-      BACKUP_SCHEDULE: "0 2 * * *"  # Daily at 02:00
+      BACKUP_SCHEDULE: "0 2 * * *"  # Optional: Daily at 02:00
       KEEP_BACKUPS: 7
       
       # Optional: SMTP Configuration
@@ -54,8 +54,9 @@ services:
       # SMTP_SUBJECT_FAILURE: "❌ Paperless Backup failed"
       # SMTP_SECURITY: starttls
     volumes:
-      - /path/to/paperless/export:/paperless/export
+      - /path/to/paperless/export:/export
       - /path/to/backups:/backups
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 ## 📋 Configuration
@@ -65,7 +66,7 @@ services:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PAPERLESS_CONTAINER_NAME` | `paperless` | Name of the Paperless Docker container |
-| `PAPERLESS_EXPORT_DIR` | `../export/` | Export directory inside Paperless container |
+| `PAPERLESS_EXPORT_DIR` | `../export` | Export directory inside Paperless container |
 | `BACKUP_DIR` | `/backup` | Target directory for backups |
 | `EXPORT_DIR` | `/export` | Local export directory |
 | `KEEP_BACKUPS` | `7` | Number of backup versions to keep |
