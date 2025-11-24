@@ -14,6 +14,7 @@ paperless_export_dir = os.getenv("PAPERLESS_EXPORT_DIR", "../export")
 keep_backups = int(os.getenv("KEEP_BACKUPS", "3"))
 backup_dir = os.getenv("BACKUP_DIR", "/backup")
 export_dir = os.getenv("EXPORT_DIR", "/export")
+backup_prefix = os.getenv("BACKUP_PREFIX", "backup")
 
 smtp_server = os.getenv("SMTP_SERVER")
 smtp_port = int(os.getenv("SMTP_PORT", "587"))
@@ -39,10 +40,10 @@ if not os.path.exists(export_dir):
 try:
     #start backup process
     log_msg(f"Paperless Backup started ...")
-    start_backup(container_name, paperless_export_dir, backup_dir)
+    start_backup(container_name=container_name, paperless_export_dir=paperless_export_dir, backup_dir=backup_dir, backup_prefix=backup_prefix)
 
     #start retention policy
-    retention_policy(keep_backups=keep_backups, backup_dir=backup_dir)
+    retention_policy(keep_backups=keep_backups, backup_dir=backup_dir, backup_prefix=backup_prefix)
 except Exception as e:
     log_msg(str(e))
     success = False

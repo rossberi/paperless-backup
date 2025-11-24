@@ -7,7 +7,7 @@ if [ -n "$BACKUP_SCHEDULE" ]; then
     printf "\n"
 
     # create crontab
-    echo "$BACKUP_SCHEDULE /usr/local/bin/python3 /code/main.py 2>&1" > /etc/crontabs/root
+    echo "$BACKUP_SCHEDULE /usr/local/bin/python3 /code/main.py >> /proc/1/fd/1 2>&1" > /etc/crontabs/root
     crond -f -L /dev/stdout
 
 else
