@@ -52,6 +52,7 @@ dist/
 Dockerfile
 docker-compose.yml
 .dockerignore
+.github/workflows/
 
 # Dokumentationsverzeichnisse
 docs/

@@ -6,8 +6,13 @@ if [ -n "$BACKUP_SCHEDULE" ]; then
     printf "BACKUP_SCHEDULE detected: $BACKUP_SCHEDULE\n"
     printf "\n"
 
+    # Check if Backup_ON_STARTUP is set to run a backup on startup
+    if [ "$(echo "$BACKUP_ON_STARTUP" | tr '[:upper:]' '[:lower:]')" = "true" ]; then
+        /usr/local/bin/python3 /code/main.py
+    fi
+
     # create crontab
-    echo "$BACKUP_SCHEDULE /usr/local/bin/python3 /code/main.py 2>&1" > /etc/crontabs/root
+    echo "$BACKUP_SCHEDULE /usr/local/bin/python3 /code/main.py >> /proc/1/fd/1 2>&1" > /etc/crontabs/root
     crond -f -L /dev/stdout
 
 else

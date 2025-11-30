@@ -1,6 +1,6 @@
 # 📦 Paperless Backup
 
-An automated Docker-based backup system for [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) with email notifications and intelligent retention policies.
+An automated Docker-based backup system for [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) with email notifications and retention policies.
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.14-3776ab?style=for-the-badge&logo=python&logoColor=white)
@@ -40,8 +40,10 @@ services:
       PAPERLESS_EXPORT_DIR: '../export'
       BACKUP_DIR: '/backups'
       EXPORT_DIR: '/export'
+      BACKUP_PREFIX: 'backup'
       BACKUP_SCHEDULE: "0 2 * * *"  # Optional: Daily at 02:00
       KEEP_BACKUPS: 7
+      BACKUP_ON_STARTUP: False
       
       # Optional: SMTP Configuration
       # SMTP_SERVER: smtp.example.com
@@ -68,8 +70,10 @@ services:
 | `PAPERLESS_CONTAINER_NAME` | `paperless` | Name of the Paperless Docker container |
 | `PAPERLESS_EXPORT_DIR` | `../export` | Export directory inside Paperless container |
 | `BACKUP_DIR` | `/backup` | Target directory for backups |
+| `BACKUP_PREFIX` | `backup` | Prefix of the backup files |
 | `EXPORT_DIR` | `/export` | Local export directory |
 | `KEEP_BACKUPS` | `7` | Number of backup versions to keep |
+| `BACKUP_ON_STARTUP` | `False` | Run a backup on startup |
 
 ### Optional: SMTP Configuration
 
@@ -115,7 +119,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 📞 Support
 
-- 🐛 [Issues](https://github.com/yourusername/paperless-backup/issues)
+- 🐛 [Issues](https://github.com/rossberi/paperless-backup/issues)
 
 ## 📚 Resources
 
