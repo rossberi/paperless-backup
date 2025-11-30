@@ -5,12 +5,17 @@ An automated Docker-based backup system for [Paperless-ngx](https://github.com/p
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.14-3776ab?style=for-the-badge&logo=python&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088F0?style=for-the-badge&logo=github-actions&logoColor=white)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-2088F0?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/rossberi/paperless-backup)
 
 ## ✨ Features
 
 - **🔄 Automated Backups** - Time-scheduled backups with cron integration
 - **📧 Email Notifications** - Success and failure alerts via SMTP
 - **🧹 Retention Policy** - Automatic cleanup of old backups
+
+## 📦 Available on Docker Hub
+
+- 📦 [Docker Hub](https://hub.docker.com/r/rossberi/paperless-backup)
 
 
 ## 🚀 Quick Start
@@ -120,6 +125,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## 📞 Support
 
 - 🐛 [Issues](https://github.com/rossberi/paperless-backup/issues)
+- 📪 [Discord](https://discord.com/users/305335010712616961)
 
 ## 📚 Resources
 
