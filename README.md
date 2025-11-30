@@ -1,6 +1,6 @@
 # 📦 Paperless Backup
 
-An automated Docker-based backup system for [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) with email notifications and intelligent retention policies.
+An automated Docker-based backup system for [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx) with email notifications and retention policies.
 
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.14-3776ab?style=for-the-badge&logo=python&logoColor=white)

@@ -8,6 +8,7 @@ from app.config import Config
 
 success = True
 
+Config.validate()
 
 try:
     #start backup process
@@ -20,7 +21,7 @@ except Exception as e:
     log_msg(str(e))
     success = False
 
-#send mail with log
+# Send mail with log
 subject = Config.SMTP_SUBJECT_SUCCESS if success else Config.SMTP_SUBJECT_FAILURE
 mail_body = "\n".join(log)
 
@@ -36,3 +37,5 @@ if Config.SMTP_SERVER is not None:
         mail_body,
         Config.SMTP_SECURITY,
     )
+else:
+    log_msg("No SMTP_SERVER configured, skipping email notification")

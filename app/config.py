@@ -6,23 +6,22 @@ class Config:
     PAPERLESS_EXPORT_DIR = os.getenv("PAPERLESS_EXPORT_DIR", "../export")
     
     # Backup
-    BACKUP_DIR = os.getenv("BACKUP_DIR", "/backup")
-    EXPORT_DIR = os.getenv("EXPORT_DIR", "/export")
-    KEEP_BACKUPS = int(os.getenv("KEEP_BACKUPS", "7"))
-    BACKUP_PREFIX = os.getenv("BACKUP_PREFIX", "backup")
-    BACKUP_ON_STARTUP = os.getenv("BACKUP_ON_STARTUP", "False")
-    BACKUP_ENCRYPTION_PASSWORD = os.getenv("BACKUP_ENCRYPTION_PASSWORD")
+    BACKUP_DIR: str = os.getenv("BACKUP_DIR", "/backup")
+    EXPORT_DIR: str = os.getenv("EXPORT_DIR", "/export")
+    KEEP_BACKUPS: int = int(os.getenv("KEEP_BACKUPS", "7"))
+    BACKUP_PREFIX: str = os.getenv("BACKUP_PREFIX", "backup")
+    BACKUP_ON_STARTUP: str = os.getenv("BACKUP_ON_STARTUP", "False")
     
     # SMTP
-    SMTP_SERVER = os.getenv("SMTP_SERVER")
-    SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-    SMTP_USERNAME = os.getenv("SMTP_USERNAME")
-    SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
-    SMTP_SENDER = os.getenv("SMTP_SENDER")
-    SMTP_RECIPIENT = os.getenv("SMTP_RECIPIENT")
-    SMTP_SUBJECT_SUCCESS = os.getenv("SMTP_SUBJECT_SUCCESS", "Paperless backup successful")
-    SMTP_SUBJECT_FAILURE = os.getenv("SMTP_SUBJECT_FAILURE", "Paperless backup failed")
-    SMTP_SECURITY = os.getenv("SMTP_SECURITY", "starttls")
+    SMTP_SERVER: str = os.getenv("SMTP_SERVER")
+    SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
+    SMTP_USERNAME: str  = os.getenv("SMTP_USERNAME")
+    SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD")
+    SMTP_SENDER: str = os.getenv("SMTP_SENDER")
+    SMTP_RECIPIENT: str = os.getenv("SMTP_RECIPIENT")
+    SMTP_SUBJECT_SUCCESS: str = os.getenv("SMTP_SUBJECT_SUCCESS", "Paperless backup successful")
+    SMTP_SUBJECT_FAILURE: str = os.getenv("SMTP_SUBJECT_FAILURE", "Paperless backup failed")
+    SMTP_SECURITY: str = os.getenv("SMTP_SECURITY", "starttls")
     
     @staticmethod
     def validate():
